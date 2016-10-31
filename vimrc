@@ -9,6 +9,7 @@
 
 set nocompatible              " required
 filetype on                   " required
+filetype plugin on            " required
 
 
 " ============================================
@@ -38,6 +39,9 @@ set laststatus=2
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
 set pastetoggle=<F2>-
 set clipboard=unnamed
+
+
+set encoding=utf-8
 
 
 " ============================================
@@ -70,6 +74,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'klen/python-mode'
+Plugin 'davidhalter/jedi-vim'
 
 
 " All of your Plugins must be added before the following line
@@ -121,16 +126,16 @@ nnoremap <space> za
 
 let g:SimpylFold_docstring_preview=1
 
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix | 
+" au BufNewFile,BufRead *.py
+"     \ set tabstop=4 |
+"     \ set softtabstop=4 |
+"     \ set shiftwidth=4 |
+"     \ set textwidth=79 |
+"     \ set expandtab |
+"     \ set autoindent |
+"     \ set fileformat=unix | 
 
-set encoding=utf-8
+" set encoding=utf-8
 
 
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
@@ -157,6 +162,8 @@ let g:pymode = 1
 " Setup default python options
 let g:pymode_options = 1
 
+" Use jedi-vim instead
+let g:pymode_rope_completion = 0
 
 " Setup pymode quickfix window
 let g:pymode_quickfix_minheight = 3
@@ -181,26 +188,26 @@ let g:pymode_python = 'python3'
 "let g:pymode_motion = 1
 
 
-" Turns on the documentation script
-"let g:pymode_doc = 1
+" Pydoc has been enable in jedi-vim
+let g:pymode_doc = 0
 " Bind keys to show documentation for current word (selection)
 "let g:pymode_doc_bind = 'K'
 
 
 " Enable automatic virtualenv detection
-"let g:pymode_virtualenv = 1
+let g:pymode_virtualenv = 1
 
 
 " Set path to virtualenv manually
-"let g:pymode_virtualenv_path = $VIRTUAL_ENV
+let g:pymode_virtualenv_path = $VIRTUAL_ENV
 
 
 " Turn on the run code script
-"let g:pymode_run = 1
+let g:pymode_run = 1
 
 
 " Binds keys to run python code
-"let g:pymode_run_bind = '<leader>r'
+let g:pymode_run_bind = '<leader>r'
 
 
 " Turn on code completion support in the plugin
@@ -209,3 +216,18 @@ let g:pymode_python = 'python3'
 
 " Turn on autocompletion when typing a period
 "let g:pymode_rope_complete_on_dot = 1 
+
+
+" ============================================
+" Jedi-vim config
+" ============================================
+
+
+let g:jedi#rename_command = "<leader>f"
+
+
+" ============================================
+" YouCompleteMe config
+" ============================================
+
+
