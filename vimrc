@@ -61,7 +61,6 @@ Plugin 'gmarik/Vundle.vim'
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
@@ -70,6 +69,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'klen/python-mode'
 
 
 " All of your Plugins must be added before the following line
@@ -151,7 +151,7 @@ let g:pymode = 1
 
 
 " Trim unused white spaces on save
-let g:pymode_trim_whitespaces = 1
+"let g:pymode_trim_whitespaces = 1
 
 
 " Setup default python options
@@ -169,35 +169,43 @@ let g:pymode_python = 'python3'
 
 " Python indentation
 " Pymode supports PEP8-compatible python indent
-let g:pymode_indent = 1
+"let g:pymode_indent = 1
 
 
 " Python folding
 " Fast and usual python floding in Vim
-let g:pymode_folding = 1
+"let g:pymode_folding = 1
 
 
 " Enable python-motion
-let g:pymode_motion = 1
+"let g:pymode_motion = 1
 
 
 " Turns on the documentation script
-let g:pymode_doc = 1
+"let g:pymode_doc = 1
 " Bind keys to show documentation for current word (selection)
-let g:pymode_doc_bind = 'K'
+"let g:pymode_doc_bind = 'K'
 
 
 " Enable automatic virtualenv detection
-let g:pymode_virtualenv = 1
+"let g:pymode_virtualenv = 1
 
 
 " Set path to virtualenv manually
-let g:pymode_virtualenv_path = $VIRTUAL_ENV
+"let g:pymode_virtualenv_path = $VIRTUAL_ENV
 
 
 " Turn on the run code script
-let g:pymode_run = 1
+"let g:pymode_run = 1
 
 
 " Binds keys to run python code
-ret g:pymode_run_bind = '<leader>r'
+"let g:pymode_run_bind = '<leader>r'
+
+
+" Turn on code completion support in the plugin
+"let g:pymode_rope_completion = 1
+
+
+" Turn on autocompletion when typing a period
+"let g:pymode_rope_complete_on_dot = 1 
