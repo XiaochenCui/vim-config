@@ -9,7 +9,6 @@
 
 set nocompatible              " required
 filetype on                   " required
-filetype plugin on            " required
 
 
 " ============================================
@@ -18,10 +17,11 @@ filetype plugin on            " required
 
 
 " Automatic reloading of .vimrc
-augroup reload_vimrc
-	autocmd!
-	autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END
+" I'm not sure if it works.
+"augroup reload_vimrc
+"	autocmd!
+"	autocmd BufWritePost $MYVIMRC source $MYVIMRC
+"augroup END
 
 
 set hlsearch	"high line search
@@ -34,6 +34,9 @@ syntax on
 set laststatus=2
 
 
+set tabstop=4
+
+
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
@@ -42,6 +45,9 @@ set clipboard=unnamed
 
 
 set encoding=utf-8
+
+
+:set linebreak
 
 
 " ============================================
@@ -72,13 +78,19 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'klen/python-mode'
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'ervandew/supertab'
+Plugin 'Valloric/YouCompleteMe'
 
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
+
 filetype plugin indent on    " required
 
 
@@ -126,14 +138,6 @@ nnoremap <space> za
 
 let g:SimpylFold_docstring_preview=1
 
-" au BufNewFile,BufRead *.py
-"     \ set tabstop=4 |
-"     \ set softtabstop=4 |
-"     \ set shiftwidth=4 |
-"     \ set textwidth=79 |
-"     \ set expandtab |
-"     \ set autoindent |
-"     \ set fileformat=unix | 
 
 " set encoding=utf-8
 
@@ -160,10 +164,20 @@ let g:pymode = 1
 
 
 " Setup default python options
-let g:pymode_options = 1
+let g:pymode_options = 0
+
+
+" Setup max line length
+let g:pymode_options_max_line_length = 79
+
+
+" Enable colorcolumn display at max_line_length
+let g:pymode_options_colorcolumn = 1
+
 
 " Use jedi-vim instead
 let g:pymode_rope_completion = 0
+
 
 " Setup pymode quickfix window
 let g:pymode_quickfix_minheight = 3
@@ -215,7 +229,7 @@ let g:pymode_run_bind = '<leader>r'
 
 
 " Turn on autocompletion when typing a period
-"let g:pymode_rope_complete_on_dot = 1 
+"let g:pymode_rope_complete_on_dot = 1
 
 
 " ============================================
@@ -223,7 +237,16 @@ let g:pymode_run_bind = '<leader>r'
 " ============================================
 
 
+" Rename variables
 let g:jedi#rename_command = "<leader>f"
+
+
+" Show usages of a name
+"let g:jedi#usages_command = "<leader>n"
+
+
+" Go to definition (or assignment)
+"let g:goto#goto_command = "<leader>d"
 
 
 " ============================================
@@ -231,3 +254,66 @@ let g:jedi#rename_command = "<leader>f"
 " ============================================
 
 
+let g:ycm_python_binary_path = 'python'
+
+
+" ============================================
+" Custom function
+" ============================================
+
+
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
+
+" ============================================
+" Python style config
+" ============================================
+
+
+" part of python config
+setlocal complete+=t
+setlocal formatoptions-=t
+setlocal number
+setlocal textwidth=79
+setlocal commentstring=#%s
+setlocal define=^\s*\\(def\\\\|class\\)
+
+
+" ============================================
+" Soft wrap config
+" ============================================
+
+
+" soft warp config
+setlocal columns=80
+autocmd VimResized * if (&columns > 80) | setlocal columns=80 | endif
+setlocal wrap
+setlocal linebreak
+setlocal showbreak=+++
+
+
+" ============================================
+" Airline/Powerline config
+" ============================================
+
+
+" air-line
+let g:airline_powerline_fonts = 1
+
+
+let g:airline_section_y = airline#section#create(['ffenc', ' %{strftime("%H:%M")}'])
+
+
+set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
+
+
+" Always show statusline
+set laststatus=2
+
+
+" Use 256 colours (Use this setting only if your terminal supports 256 colours)
+set t_Co=256
